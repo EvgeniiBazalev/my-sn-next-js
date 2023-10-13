@@ -7,19 +7,22 @@ async function getData(id) {
   });
 
   if (!res.ok) {
-    // throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch data");
   }
 
   return res.json();
 }
 
-export async function generateMetadata({ params }) {
-  const post = await getData(params.id);
-  return {
+export async function generateMetadata({ params }){
+   const post = await getData(params.id)
+   return {
     title: post.title,
     description: post.desc,
   };
 }
+
+
+
 
 const BlogId = async ({ params }) => {
   const data = await getData(params.id);

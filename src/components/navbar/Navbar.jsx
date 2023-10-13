@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import Link from "next/link";
+import Link from "next/link"
+import styles from "./page.module.css";
 import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
-import styles from "./Navbar.module.css";
+import { signOut, useSession } from "next-auth/react";
 
-const Navbar = () => {
-  const links = [
+const links = [
     {
       id: 1,
       title: "Home",
@@ -38,29 +38,21 @@ const Navbar = () => {
     },
   ];
 
+const Navbar = () => {
+  const session = useSession();
   return (
     <nav className={styles.container}>
-      <Link href="" className={styles.logo}>
-        MyApp
-      </Link>
-      <div className={styles.link}>
-        <DarkModeToggle />
-        {links.map((link) => (
-          <Link key={link.id} href={link.url}>
-            {link.title}
-          </Link>
-        ))}
-        <button
-          className={styles.logout}
-          onClick={() => {
-            console.log("logget out");
-          }}
-        >
-          Logout
-        </button>
-      </div>
+        <Link href='/' className={styles.logo}>MyApp</Link>
+        <div className={styles.links}>
+          <DarkModeToggle />
+            {links.map((link) =>(
+                <Link key={link.id} href={link.url}>{link.title}</Link>
+            ))}
+            { session.status == "authenticated" &&
+              <button className={styles.logout} onClick={signOut}>Logout</button>}
+        </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

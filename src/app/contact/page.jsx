@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 
+
 export const metadata = {
   title: "Contact",
   description: "This is decription",
